@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->longText('description');
             $table->unsignedTinyInteger('status')->default(0);
-            $table->string('post_title')->default('post');
+            $table->string('post_type')->default('post');
             $table->unsignedTinyInteger('comment_able')->default(1);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
