@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Page;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,7 +18,7 @@ class PageSeeder extends Seeder
     {
 
 
-            Post::create([
+            Page::create([
                 'title' => 'About Us',
                 'description' => fake()->paragraph(),
                 'status' => 1,
@@ -27,7 +28,7 @@ class PageSeeder extends Seeder
                 'category_id' => 1,
             ]);
 
-            Post::create([
+            Page::create([
                 'title' => 'Our Vision',
                 'description' => fake()->paragraph(),
                 'status' => 1,
