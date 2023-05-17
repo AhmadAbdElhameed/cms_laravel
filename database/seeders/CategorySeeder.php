@@ -13,27 +13,27 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::craete([
+        Category::create([
             'name' => 'un-categorized',
             'status' => 1,
         ]);
 
-        Category::craete([
+        Category::create([
             'name' => 'Swimming',
             'status' => 1,
         ]);
 
-        Category::craete([
+        Category::create([
             'name' => 'Football',
             'status' => 1,
         ]);
 
-        Category::craete([
+        Category::create([
             'name' => 'Karate',
             'status' => 1,
         ]);
 
-        Category::craete([
+        Category::create([
             'name' => 'Basket Ball',
             'status' => 1,
         ]);

@@ -77,7 +77,7 @@ class RoleSeeder extends Seeder
             'name' => 'user',
             'username' => 'user',
             'email' => 'user@user.com',
-            'mobile' => '01010203002',
+            'mobile' => '01010203003',
             'email_verified_at' => Carbon::now(),
             'password' => bcrypt('123456'),
             'status' => '1',

@@ -20,7 +20,7 @@ class PostSeeder extends Seeder
 
 
 
-        for($i=0 ; $i < 100 ; $i++){
+        for($i=0 ; $i < 1000 ; $i++){
             $post = Post::create([
                 'title' =>fake()->sentence(mt_rand(3,10),true),
                 'description' => fake()->paragraph(),
