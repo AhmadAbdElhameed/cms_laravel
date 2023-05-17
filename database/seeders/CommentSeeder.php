@@ -34,7 +34,7 @@ class CommentSeeder extends Seeder
 //        }
 
 
-        for($i = 0 ; $i < 2000; $i++) {
+        for($i = 0 ; $i < 4000; $i++) {
 
             $selected_post = $posts->random();
             $post_date = $selected_post->created_at->timestamp;
@@ -56,7 +56,7 @@ class CommentSeeder extends Seeder
         }
 
 
-        $chunks = array_chunk($comments, 200);
+        $chunks = array_chunk($comments, 400);
         foreach ($chunks as $chunk) {
             Comment::insert($chunk);
         }
