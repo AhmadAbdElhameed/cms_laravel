@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\Enduser\Auth\ForgotPasswordController;
-use App\Http\Controllers\Enduser\Auth\LoginController;
-use App\Http\Controllers\Enduser\Auth\RegisterController;
-use App\Http\Controllers\Enduser\Auth\ResetPasswordController;
-use App\Http\Controllers\Enduser\Auth\VerificationController;
+use App\Http\Controllers\Admin\Auth\ForgotPasswordController;
+use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\Auth\RegisterController;
+use App\Http\Controllers\Admin\Auth\ResetPasswordController;
+use App\Http\Controllers\Admin\Auth\VerificationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,16 +18,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[\App\Http\Controllers\Enduser\IndexController::class,'index']);
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 
-Route::group(['prefix' => 'enduser' , 'as' => 'enduser.'] , function(){
+Route::group(['prefix' => 'admin' , 'as' => 'admin.'] , function(){
     Route::get('/login' , [LoginController::class,'showLoginForm'])->name('show_login_form');
     Route::post('login' , [LoginController::class,'login'])->name('login');
     Route::post('logout' , [LoginController::class,'logout'])->name('logout');
-
-    Route::get('/register' , [RegisterController::class,'showRegistrationForm'])->name('show_register_form');
-    Route::post('/register' , [RegisterController::class,'register'])->name('register');
 
     Route::get('/password/reset' ,[ForgotPasswordController::class,'showLinkRequestForm'])->name('password.request');
     Route::post('/password/email' ,[ForgotPasswordController::class,'sendResetLinkEmail'])->name('password.email');

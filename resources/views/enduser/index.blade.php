@@ -2,4 +2,8 @@
 
 @section('content')
     End User Page
+
+
+    AAAAAAAAAAAAAAAA
+    AAAAAAAAAAAAA
 @endsection
