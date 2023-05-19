@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Enduser\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
 
 class RegisterController extends Controller
 {
@@ -29,7 +31,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.
@@ -51,8 +53,11 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255','unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'mobile' => ['required', 'numeric', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'image' => ['nullable', 'image', 'max:20000', 'mimes:jpeg,jpg,png,webp'],
         ]);
     }
 
@@ -64,10 +69,28 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user =  User::create([
             'name' => $data['name'],
+            'username' => $data['username'],
             'email' => $data['email'],
+            'mobile' => $data['mobile'],
             'password' => Hash::make($data['password']),
         ]);
+
+        if(isset($data['image'])){
+            if($image = $data['image']){
+                $filename = Str::slug($data['username'].'-'.$image->getClientOriginalExtension());
+                $path = public_path('/assets/users/' . $filename);
+                Image::make($image->getRealPath())->resize(300,300,function($constraint){
+                    $constraint->aspectRatio();
+                })->save($path);
+                $user->update(['image' =>$filename]);
+            }
+        }
+    }
+
+    public function showRegistrationForm()
+    {
+        return view('enduser.auth.register');
     }
 }
