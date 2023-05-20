@@ -21,4 +21,24 @@ class IndexController extends Controller
             ->orderBy('id','desc')->paginate(10);
         return view('enduser.index',compact('posts'));
     }
+
+    public function show($slug){
+        $post = Post::with(['category','user','media','approved_comments' => function($query){
+            $query->orderBy('id','desc');
+        }])->whereHas('category',function($query){
+                $query->where('status',1);
+        })->whereHas('user',function($query){
+                $query->where('status',1);
+        });
+        $post = $post->where('slug',$slug);
+        $post = $post->where('post_type','post')
+            ->where('status',1)
+            ->first();
+
+        if($post){
+            return view('enduser.post',compact('post'));
+        }else{
+            return redirect(route('index'));
+        }
+    }
 }

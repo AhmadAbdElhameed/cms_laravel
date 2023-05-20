@@ -5,6 +5,7 @@ use App\Http\Controllers\Enduser\Auth\LoginController;
 use App\Http\Controllers\Enduser\Auth\RegisterController;
 use App\Http\Controllers\Enduser\Auth\ResetPasswordController;
 use App\Http\Controllers\Enduser\Auth\VerificationController;
+use App\Http\Controllers\Enduser\IndexController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[\App\Http\Controllers\Enduser\IndexController::class,'index']);
+
 
 
 Route::group(['prefix' => 'enduser' , 'as' => 'enduser.'] , function(){
@@ -37,4 +38,7 @@ Route::group(['prefix' => 'enduser' , 'as' => 'enduser.'] , function(){
     Route::get('email/verify' ,[VerificationController::class,'show'])->name('verification.notice');
     Route::get('email/verify/{id}/{hash}' ,[VerificationController::class,'verify'])->name('verification.verify');
     Route::post('email/resend' ,[VerificationController::class,'resend'])->name('verification.resend');
+
 });
+Route::get('/',[IndexController::class,'index'])->name('index');
+Route::get('/{slug}',[IndexController::class,'show'])->name('post.show');

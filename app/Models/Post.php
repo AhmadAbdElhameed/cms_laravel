@@ -32,6 +32,11 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
+    public function approved_comments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Comment::class)->where('status',1);
+    }
+
     public function media(){
         return $this->hasMany(PostMedia::class);
     }
