@@ -7,138 +7,48 @@
             <div class="row">
                 <div class="col-lg-9 col-12">
                     <div class="blog-page">
-{{--                        <div class="page__header">--}}
-{{--                            <h2>Category Archives: HTML</h2>--}}
-{{--                        </div>--}}
-                        <!-- Start Single Post -->
-                        <article class="blog__post d-flex flex-wrap">
-                            <div class="thumb">
-                                <a href="blog-details.html">
-                                    <img src="{{asset('assetsEnduser/images/blog/blog-3/1.jpg')}}" alt="blog images">
-                                </a>
-                            </div>
-                            <div class="content">
-                                <h4><a href="blog-details.html">Blog image post</a></h4>
-                                <ul class="post__meta">
-                                    <li>Posts by : <a href="#">road theme</a></li>
-                                    <li class="post_separator">/</li>
-                                    <li>Mar 10 2018</li>
-                                </ul>
-                                <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Crastoup pretium arcu ex. Aenean posuere libero eu augue rhoncus Praesent ornare tortor amet.</p>
-                                <div class="blog__btn">
-                                    <a href="blog-details.html">read more</a>
+                        @forelse($posts as $post)
+                            <article class="blog__post d-flex flex-wrap">
+                                <div class="thumb">
+                                    <a href="blog-details.html">
+                                        @if($post->media->count() > 0)
+                                            <img src="{{asset('assets/posts/' . $post->media->first()->filename)}}" alt="{{$post->title}}">
+                                        @else
+                                            <img src="{{asset('assets/posts/default.png')}}" alt="{{$post->title}}">
+                                        @endif
+
+                                    </a>
                                 </div>
-                            </div>
-                        </article>
-                        <!-- End Single Post -->
-                        <!-- Start Single Post -->
-                        <article class="blog__post d-flex flex-wrap">
-                            <div class="thumb">
-                                <a href="blog-details.html">
-                                    <img src="{{asset('assetsEnduser/images/blog/blog-3/2.jpg')}}" alt="blog images">
-                                </a>
-                            </div>
-                            <div class="content">
-                                <h4><a href="blog-details.html">Post with Gallery</a></h4>
-                                <ul class="post__meta">
-                                    <li>Posts by : <a href="#">road theme</a></li>
-                                    <li class="post_separator">/</li>
-                                    <li>Mar 10 2018</li>
-                                </ul>
-                                <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Crastoup pretium arcu ex. Aenean posuere libero eu augue rhoncus Praesent ornare tortor amet.</p>
-                                <div class="blog__btn">
-                                    <a href="blog-details.html">read more</a>
+                                <div class="content">
+                                    <h4><a href="blog-details.html">{{$post->title}}</a></h4>
+                                    <ul class="post__meta">
+                                        <li>Posts by : <a href="#">{{$post->user->name}}</a></li>
+                                        <li class="post_separator">/</li>
+                                        <li>{{$post->created_at->format('M d Y')}}</li>
+                                    </ul>
+                                    <p>{!! \Illuminate\Support\Str::limit($post->description , 150 , '...') !!}</p>
+                                    <div class="blog__btn">
+                                        <a href="blog-details.html">read more</a>
+                                    </div>
                                 </div>
+                            </article>
+                            <!-- End Single Post -->
+                        @empty
+                            <div class="text-center">
+                                <h2>No Posts Found</h2>
                             </div>
-                        </article>
-                        <!-- End Single Post -->
-                        <!-- Start Single Post -->
-                        <article class="blog__post d-flex flex-wrap">
-                            <div class="thumb">
-                                <a href="blog-details.html">
-                                    <img src="{{asset('assetsEnduser/images/blog/blog-3/3.jpg')}}" alt="blog images">
-                                </a>
-                            </div>
-                            <div class="content">
-                                <h4><a href="blog-details.html">Post with Gallery</a></h4>
-                                <ul class="post__meta">
-                                    <li>Posts by : <a href="#">road theme</a></li>
-                                    <li class="post_separator">/</li>
-                                    <li>Mar 10 2018</li>
-                                </ul>
-                                <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Crastoup pretium arcu ex. Aenean posuere libero eu augue rhoncus Praesent ornare tortor amet.</p>
-                                <div class="blog__btn">
-                                    <a href="blog-details.html">read more</a>
-                                </div>
-                            </div>
-                        </article>
-                        <!-- End Single Post -->
-                        <!-- Start Single Post -->
-                        <article class="blog__post d-flex flex-wrap">
-                            <div class="thumb">
-                                <a href="blog-details.html">
-                                    <img src="{{asset('assetsEnduser/images/blog/blog-3/4.jpg')}}" alt="blog images">
-                                </a>
-                            </div>
-                            <div class="content">
-                                <h4><a href="blog-details.html">Blog image post</a></h4>
-                                <ul class="post__meta">
-                                    <li>Posts by : <a href="#">road theme</a></li>
-                                    <li class="post_separator">/</li>
-                                    <li>Mar 10 2018</li>
-                                </ul>
-                                <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Crastoup pretium arcu ex. Aenean posuere libero eu augue rhoncus Praesent ornare tortor amet.</p>
-                                <div class="blog__btn">
-                                    <a href="blog-details.html">read more</a>
-                                </div>
-                            </div>
-                        </article>
-                        <!-- End Single Post -->
-                        <!-- Start Single Post -->
-                        <article class="blog__post d-flex flex-wrap">
-                            <div class="thumb">
-                                <a href="blog-details.html">
-                                    <img src="{{asset('assetsEnduser/images/blog/blog-3/5.jpg')}}" alt="blog images">
-                                </a>
-                            </div>
-                            <div class="content">
-                                <h4><a href="blog-details.html">Blog image post</a></h4>
-                                <ul class="post__meta">
-                                    <li>Posts by : <a href="#">road theme</a></li>
-                                    <li class="post_separator">/</li>
-                                    <li>Mar 10 2018</li>
-                                </ul>
-                                <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Crastoup pretium arcu ex. Aenean posuere libero eu augue rhoncus Praesent ornare tortor amet.</p>
-                                <div class="blog__btn">
-                                    <a href="blog-details.html">read more</a>
-                                </div>
-                            </div>
-                        </article>
-                        <!-- End Single Post -->
-                        <!-- Start Single Post -->
-                        <article class="blog__post text--post">
-                            <div class="content">
-                                <h4><a href="blog-details.html">Blog image post</a></h4>
-                                <ul class="post__meta">
-                                    <li>Posts by : <a href="#">road theme</a></li>
-                                    <li class="post_separator">/</li>
-                                    <li>Mar 10 2018</li>
-                                </ul>
-                                <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Crastoup pretium arcu ex. Aenean posuere libero eu augue rhoncus Praesent ornare tortor amet.</p>
-                                <div class="blog__btn">
-                                    <a href="blog-details.html">read more</a>
-                                </div>
-                            </div>
-                        </article>
-                        <!-- End Single Post -->
+                        @endforelse
+
+
                     </div>
-                    <ul class="wn__pagination">
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
-                    </ul>
+                    {!! $posts->appends(request()->input())->links() !!}
+{{--                    <ul class="wn__pagination">--}}
+{{--                        <li class="active"><a href="#">1</a></li>--}}
+{{--                        <li><a href="#">2</a></li>--}}
+{{--                        <li><a href="#">3</a></li>--}}
+{{--                        <li><a href="#">4</a></li>--}}
+{{--                        <li><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>--}}
+{{--                    </ul>--}}
                 </div>
                 <div class="col-lg-3 col-12 md-mt-40 sm-mt-40">
                     <div class="wn__sidebar">
