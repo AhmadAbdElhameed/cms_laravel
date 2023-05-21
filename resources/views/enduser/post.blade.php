@@ -57,66 +57,70 @@
                             </div>
                         </article>
                         <div class="comments_area">
-                            <h3 class="comment__title">1 comment</h3>
+                            <h3 class="comment__title">{{$post->approved_comments()->count()}} comment</h3>
                             <ul class="comment__list">
-                                <li>
-                                    <div class="wn__comment">
-                                        <div class="thumb">
-                                            <img src="{{asset('assetsEnduser/images/blog/comment/1.jpeg')}}" alt="comment images">
-                                        </div>
-                                        <div class="content">
-                                            <div class="comnt__author d-block d-sm-flex">
-                                                <span><a href="#">admin</a> Post author</span>
-                                                <span>October 6, 2014 at 9:26 am</span>
-                                                <div class="reply__btn">
-                                                    <a href="#">Reply</a>
-                                                </div>
+                                @forelse($post->approved_comments as $comment)
+                                    <li>
+                                        <div class="wn__comment">
+                                            <div class="thumb">
+                                                <img src="{{get_gravatar($comment->email,46)}}" alt="comment images">
                                             </div>
-                                            <p>Sed interdum at justo in efficitur. Vivamus gravida volutpat sodales. Fusce ornare sit</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="comment_reply">
-                                    <div class="wn__comment">
-                                        <div class="thumb">
-                                            <img src="{{asset('assetsEnduser/images/blog/comment/1.jpeg')}}'" alt="comment images">
-                                        </div>
-                                        <div class="content">
-                                            <div class="comnt__author d-block d-sm-flex">
-                                                <span><a href="#">admin</a> Post author</span>
-                                                <span>October 6, 2014 at 9:26 am</span>
-                                                <div class="reply__btn">
-                                                    <a href="#">Reply</a>
+                                            <div class="content">
+                                                <div class="comnt__author d-block d-sm-flex">
+                                                    <span><a href="{{$comment->url != '' ? $comment->url : '#'}}">{{$comment->name}}</a></span>
+                                                    <span>{{$comment->created_at->format('M d,Y h:i a')}}</span>
                                                 </div>
+                                                <p>{{$comment->comment}}</p>
                                             </div>
-                                            <p>Sed interdum at justo in efficitur. Vivamus gravida volutpat sodales. Fusce ornare sit</p>
                                         </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                @empty
+                                    <li>
+                                        <p>No Comments Found</p>
+                                    </li>
+                                @endforelse
+
                             </ul>
                         </div>
+
                         <div class="comment_respond">
-                            <h3 class="reply_title">Leave a Reply <small><a href="#">Cancel reply</a></small></h3>
-                            <form class="comment__form" action="#">
+                            <h3 class="reply_title">Leave a Reply <small></small></h3>
+
+                            <form class="comment__form" method="POST" action="{{route('comment.store',$post->slug)}}">
+                                @csrf
                                 <p>Your email address will not be published.Required fields are marked </p>
                                 <div class="input__box">
-                                    <textarea name="comment" placeholder="Your comment here"></textarea>
+                                    <textarea name="comment" placeholder="Your comment here">{{old('comment')}}</textarea>
                                 </div>
+                                @if ($errors->has('comment'))
+                                    <span class="text-danger">{{ $errors->first('comment') }}</span>
+                                @endif
                                 <div class="input__wrapper clearfix">
                                     <div class="input__box name one--third">
-                                        <input type="text" placeholder="name">
+                                        <input name="name" type="text" placeholder="name" value="{{old('name')}}">
+                                        @if ($errors->has('name'))
+                                            <span class="text-danger">{{ $errors->first('name') }}</span>
+                                        @endif
                                     </div>
                                     <div class="input__box email one--third">
-                                        <input type="email" placeholder="email">
+                                        <input name="email" type="email" placeholder="email" value="{{old('email')}}">
+                                        @if ($errors->has('email'))
+                                            <span class="text-danger">{{ $errors->first('email') }}</span>
+                                        @endif
                                     </div>
-                                    <div class="input__box website one--third">
-                                        <input type="text" placeholder="website">
+                                    <div class="input__box email one--third">
+                                        <input name="url" type="text" placeholder="website" value="{{old('url')}}">
+                                        @if ($errors->has('url'))
+                                            <span class="text-danger">{{ $errors->first('url') }}</span>
+                                        @endif
                                     </div>
+
                                 </div>
-                                <div class="submite__btn">
-                                    <a href="#">Post Comment</a>
-                                </div>
+
+                                <button class="btn btn-primary mt-4">Post Comment</button>
+
                             </form>
+
                         </div>
                     </div>
                 </div>

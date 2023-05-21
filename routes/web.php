@@ -42,3 +42,4 @@ Route::group(['prefix' => 'enduser' , 'as' => 'enduser.'] , function(){
 });
 Route::get('/',[IndexController::class,'index'])->name('index');
 Route::get('/{slug}',[IndexController::class,'show'])->name('post.show');
+Route::post('/{slug}',[IndexController::class,'commentStore'])->name('comment.store');

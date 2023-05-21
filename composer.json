@@ -15,7 +15,9 @@
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.2",
         "laravelcollective/html": "^6.4",
-        "mindscms/entrust": "^2.6"
+        "mindscms/entrust": "^2.6",
+        "realrashid/sweet-alert": "^7.0",
+        "spatie/laravel-html": "^3.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8",
@@ -32,7 +34,9 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": ["app/Helper/GetAvatar.php"]
+
     },
     "autoload-dev": {
         "psr-4": {
