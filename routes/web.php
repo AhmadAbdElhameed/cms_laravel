@@ -40,6 +40,11 @@ Route::group(['prefix' => 'enduser' , 'as' => 'enduser.'] , function(){
     Route::post('email/resend' ,[VerificationController::class,'resend'])->name('verification.resend');
 
 });
+Route::get('/contact',[IndexController::class,'contact'])->name('contact');
+Route::post('/contact',[IndexController::class,'send_message'])->name('contact.send');
 Route::get('/',[IndexController::class,'index'])->name('index');
+Route::get('/{page_slug}',[IndexController::class,'page_show'])->name('page.show');
 Route::get('/{slug}',[IndexController::class,'show'])->name('post.show');
 Route::post('/{slug}',[IndexController::class,'commentStore'])->name('comment.store');
+
+

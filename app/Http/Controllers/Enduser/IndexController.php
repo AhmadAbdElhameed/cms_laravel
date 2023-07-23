@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Enduser;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Enduser\ContactRequest;
 use App\Http\Requests\StoreCommentRequest;
 use App\Models\Comment;
 use App\Models\Post;
@@ -44,6 +45,20 @@ class IndexController extends Controller
         }
     }
 
+    public function page_show($slug){
+        $page = Post::with(['user','media']);
+        $page = $page->whereSlug($slug);
+        $page = $page->wherePostType('page')
+            ->where('status',1)
+            ->first();
+
+        if($page){
+            return view('enduser.page',compact('page'));
+        }else{
+            return redirect(route('index'));
+        }
+    }
+
     public function commentStore(StoreCommentRequest $request , $slug){
 //        dd($request->all(),$slug);
         $post = Post::where('slug',$slug)
@@ -68,6 +83,14 @@ class IndexController extends Controller
         }
 
         return redirect()->back();
+
+    }
+
+    public function contact(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    {
+        return view('enduser.contact');
+    }
+    public function send_message(ContactRequest $request){
 
     }
 }
