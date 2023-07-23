@@ -6,11 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Enduser\ContactRequest;
 use App\Http\Requests\StoreCommentRequest;
 use App\Models\Comment;
+use App\Models\Contact;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
+    private $contactModel;
+    public function __construct(Contact $contact)
+    {
+        $this->contactModel = $contact;
+    }
+
     public function index(){
         $posts = Post::with(['category','user','media'])
             ->whereHas('category',function($query){
@@ -34,26 +41,13 @@ class IndexController extends Controller
                 $query->where('status',1);
         });
         $post = $post->where('slug',$slug);
-        $post = $post->where('post_type','post')
+        $post = $post
             ->where('status',1)
             ->first();
 
         if($post){
-            return view('enduser.post',compact('post'));
-        }else{
-            return redirect(route('index'));
-        }
-    }
-
-    public function page_show($slug){
-        $page = Post::with(['user','media']);
-        $page = $page->whereSlug($slug);
-        $page = $page->wherePostType('page')
-            ->where('status',1)
-            ->first();
-
-        if($page){
-            return view('enduser.page',compact('page'));
+            $blade = $post->post_type == 'post' ? 'post' : 'page';
+            return view('enduser.'.$blade,compact('post'));
         }else{
             return redirect(route('index'));
         }
@@ -92,5 +86,15 @@ class IndexController extends Controller
     }
     public function send_message(ContactRequest $request){
 
+        $this->contactModel::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+            'title' => $request->title,
+            'message' => $request->message,
+        ]);
+
+        toast('Message Sent Successfully !','success');
+        return redirect(route('contact'));
     }
 }
