@@ -193,6 +193,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        'Redis' => Illuminate\Support\Facades\Redis::class,
     ])->toArray(),
 
 ];
