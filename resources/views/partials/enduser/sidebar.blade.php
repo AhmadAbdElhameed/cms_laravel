@@ -47,61 +47,19 @@
     <aside class="widget comment_widget">
         <h3 class="widget-title">Comments</h3>
         <ul>
-            <li>
-                <div class="post-wrapper">
-                    <div class="thumb">
-                        <img src="{{asset('assetsEnduser/images/blog/comment/1.jpeg')}}" alt="Comment images">
+            @foreach($recent_comments as $recent_comment)
+                <li>
+                    <div class="post-wrapper">
+                        <div class="thumb">
+                            <img src="{{get_gravatar($recent_comment->email,46)}}" alt={{$recent_comment->name}}>
+                        </div>
+                        <div class="content">
+                            <p>{{$recent_comment->name}} says:</p>
+                            <a href="{{route('post.show' , $recent_comment->post->slug)}}">{{\Illuminate\Support\Str::limit($recent_comment->comment,15,'...')}}</a>
+                        </div>
                     </div>
-                    <div class="content">
-                        <p>demo says:</p>
-                        <a href="#">Quisque semper nunc vitae...</a>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="post-wrapper">
-                    <div class="thumb">
-                        <img src="{{asset('assetsEnduser/images/blog/comment/1.jpeg')}}" alt="Comment images">
-                    </div>
-                    <div class="content">
-                        <p>Admin says:</p>
-                        <a href="#">Curabitur 999 aliquet pulvinar...</a>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="post-wrapper">
-                    <div class="thumb">
-                        <img src="{{asset('assetsEnduser/images/blog/comment/1.jpeg')}}" alt="Comment images">
-                    </div>
-                    <div class="content">
-                        <p>Irin says:</p>
-                        <a href="#">Quisque semper nunc vitae...</a>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="post-wrapper">
-                    <div class="thumb">
-                        <img src="{{asset('assetsEnduser/images/blog/comment/1.jpeg')}}" alt="Comment images">
-                    </div>
-                    <div class="content">
-                        <p>Boighor says:</p>
-                        <a href="#">Quisque semper nunc vitae...</a>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="post-wrapper">
-                    <div class="thumb">
-                        <img src="{{asset('assetsEnduser/images/blog/comment/1.jpeg')}}" alt="Comment images">
-                    </div>
-                    <div class="content">
-                        <p>demo says:</p>
-                        <a href="#">Quisque semper nunc vitae...</a>
-                    </div>
-                </div>
-            </li>
+                </li>
+            @endforeach
         </ul>
     </aside>
     <!-- End Single Widget -->
@@ -109,13 +67,10 @@
     <aside class="widget category_widget">
         <h3 class="widget-title">Categories</h3>
         <ul>
-            <li><a href="#">Fashion</a></li>
-            <li><a href="#">Creative</a></li>
-            <li><a href="#">Electronics</a></li>
-            <li><a href="#">Kids</a></li>
-            <li><a href="#">Flower</a></li>
-            <li><a href="#">Books</a></li>
-            <li><a href="#">Jewelle</a></li>
+            @foreach($global_categories as $global_category)
+                <li><a href="#">{{$global_category->name}}</a></li>
+            @endforeach
+
         </ul>
     </aside>
     <!-- End Single Widget -->
@@ -123,11 +78,9 @@
     <aside class="widget archives_widget">
         <h3 class="widget-title">Archives</h3>
         <ul>
-            <li><a href="#">March 2015</a></li>
-            <li><a href="#">December 2014</a></li>
-            <li><a href="#">November 2014</a></li>
-            <li><a href="#">September 2014</a></li>
-            <li><a href="#">August 2014</a></li>
+            @foreach($global_archives as $key => $val)
+                <li><a href="#">{{date("F", mktime(0,0,0,$key,1)).'   '.$val}}</a></li>
+            @endforeach
         </ul>
     </aside>
     <!-- End Single Widget -->
