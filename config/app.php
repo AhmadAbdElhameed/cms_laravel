@@ -173,6 +173,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Spatie\Html\HtmlServiceProvider::class,
+        App\Providers\ViewServiceProvider::class,
 
     ])->toArray(),
 

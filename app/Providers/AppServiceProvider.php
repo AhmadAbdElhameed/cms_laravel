@@ -20,9 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if(!request()->is('admin/*')){
-            Paginator::defaultView('vendor.pagination.blog_paginator');
-        }
+
+    //
 
     }
 }

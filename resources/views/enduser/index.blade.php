@@ -24,7 +24,7 @@
                                     <ul class="post__meta">
                                         <li>Posts by : <a href="#">{{$post->user->name}}</a></li>
                                         <li class="post_separator">/</li>
-                                        <li>{{$post->created_at->format('M d Y')}}</li>
+                                        <li>{{$post->created_at->format('M d ,Y')}}</li>
                                     </ul>
                                     <p>{!! \Illuminate\Support\Str::limit($post->description , 150 , '...') !!}</p>
                                     <div class="blog__btn">
