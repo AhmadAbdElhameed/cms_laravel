@@ -5,12 +5,19 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Searchable\Search;
+use Spatie\Searchable\Searchable;
+use Spatie\Searchable\SearchResult;
 
 class Post extends Model
 {
     use HasFactory , Sluggable;
 
-    protected $guarded = [];
+//    protected $guarded = [];
+    protected $fillable = ['title', 'slug', 'description', 'status', 'post_type',
+                'comment_able',
+                'user_id',
+                'category_id'];
 
     public function sluggable(): array
     {
@@ -40,4 +47,6 @@ class Post extends Model
     public function media(){
         return $this->hasMany(PostMedia::class);
     }
+
+
 }

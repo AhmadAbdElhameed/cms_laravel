@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Enduser;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Enduser\ContactRequest;
+use App\Http\Requests\Enduser\SearchRequest;
 use App\Http\Requests\StoreCommentRequest;
 use App\Models\Comment;
 use App\Models\Contact;
@@ -30,6 +31,32 @@ class IndexController extends Controller
             ->where('status',1)
             ->orderBy('id','desc')->paginate(10);
         return view('enduser.index',compact('posts'));
+    }
+
+    public function search(SearchRequest $request){
+        $keyword = isset($request->keyword) && $request->keyword != '' ? $request->keyword : null;
+
+        $posts = Post::with(['category','user','media'])
+            ->where('post_type','post')
+            ->where('status',1)
+            ->where(function ($query) use ($keyword){
+                $query->where('title','like',"%$keyword%")
+                    ->orWhere('description','like',"%$keyword%");
+            })
+//            ->whereHas('category',function($query){
+//                $query->where('status',1);
+//            })
+//            ->orWhereHas('user',function($query) use ($keyword){
+//                $query->where('name','like',"%$keyword%");
+//            })
+//            ->whereHas('user',function($query){
+//                $query->where('status',1);
+//            })
+
+            ->orderBy('id','desc')->paginate(10);
+
+        return view('enduser.index',compact('posts'));
+
     }
 
     public function show($slug){
@@ -97,4 +124,6 @@ class IndexController extends Controller
         toast('Message Sent Successfully !','success');
         return redirect(route('contact'));
     }
+
+
 }
