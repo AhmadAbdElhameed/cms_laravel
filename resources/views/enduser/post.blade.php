@@ -40,7 +40,7 @@
                                     <div class="blog-date-categori">
                                         <ul>
                                             <li>{{$post->created_at->format('M d, Y')}}</li>
-                                            <li><span>Author : </span><a href="#" title="Posts by {{$post->user->name}}" rel="author">{{$post->user->name}}</a></li>
+                                            <li><span>Author : </span><a href="{{route('index.author.posts',$post->user->username)}}" title="Posts by {{$post->user->name}}" rel="author">{{$post->user->name}}</a></li>
                                         </ul>
                                     </div>
                                 </div>

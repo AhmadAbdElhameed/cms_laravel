@@ -57,12 +57,12 @@ class ViewServiceProvider extends ServiceProvider
                 if(!Cache::has('global_categories')){
                     $global_categories = Category::whereStatus(1)->orderBy('id','desc')->get();
 
-                    Cache::remember('global_categories', 3600,function () use($global_categories){
+                    Cache::remember('global_categories', 60,function () use($global_categories){
                         return $global_categories;
                     });
                 }
                 $global_categories= Cache::get('global_categories');
-
+//                Cache::forget('global_categories');
                 if(!Cache::has('global_archives')){
                     $global_archives = Post::whereStatus(1)->orderBy('created_at','desc')
                     ->select(DB::raw("Year(created_at) as year"),

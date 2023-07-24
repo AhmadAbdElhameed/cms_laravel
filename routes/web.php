@@ -44,6 +44,9 @@ Route::get('/contact',[IndexController::class,'contact'])->name('contact');
 Route::post('/contact',[IndexController::class,'send_message'])->name('contact.send');
 Route::get('/',[IndexController::class,'index'])->name('index');
 
+Route::get('/category/{slug}',[IndexController::class,'category'])->name('index.category.posts');
+Route::get('/archive/{date}',[IndexController::class,'archive'])->name('index.archive.posts');
+Route::get('/author/{username}',[IndexController::class,'author'])->name('index.author.posts');
 Route::get('/search',[IndexController::class,'search'])->name('index.search');
 Route::get('/{slug}',[IndexController::class,'show'])->name('post.show');
 Route::post('/{slug}',[IndexController::class,'commentStore'])->name('comment.store');

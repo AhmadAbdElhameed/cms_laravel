@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Enduser\ContactRequest;
 use App\Http\Requests\Enduser\SearchRequest;
 use App\Http\Requests\StoreCommentRequest;
+use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Contact;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -125,5 +127,57 @@ class IndexController extends Controller
         return redirect(route('contact'));
     }
 
+    public function category($slug){
+        $category = Category::whereSlug($slug)
+            ->orWhere('id',$slug)
+            ->whereStatus(1)->first()->id;
 
+        if($category){
+            $posts = Post::with(['media','user','category'])
+                ->withCount('approved_comments')
+                ->whereCategoryId($category)
+                ->wherePostType('post')
+                ->whereStatus(1)
+                ->orderBy('id','desc')
+                ->paginate(10);
+
+            return view('enduser.index',compact('posts'));
+        }
+
+        return redirect(route('index'));
+    }
+    public function archive($date){
+        $exploded_date = explode('-',$date);
+        $month = $exploded_date[0];
+        $year = $exploded_date[1];
+
+        $posts = Post::with(['media','user','category'])
+            ->withCount('approved_comments')
+            ->whereMonth('created_at',$month)
+            ->whereYear('created_at',$year)
+            ->wherePostType('post')
+            ->whereStatus(1)
+            ->orderBy('id','desc')
+            ->paginate(10);
+
+        return view('enduser.index',compact('posts'));
+    }
+    public function author($username){
+        $user= User::whereUsername($username)
+            ->whereStatus(1)->first()->id;
+
+        if($user){
+            $posts = Post::with(['media','user','category'])
+                ->withCount('approved_comments')
+                ->whereUserId($user)
+                ->wherePostType('post')
+                ->whereStatus(1)
+                ->orderBy('id','desc')
+                ->paginate(10);
+
+            return view('enduser.index',compact('posts'));
+        }
+
+        return redirect(route('index'));
+    }
 }

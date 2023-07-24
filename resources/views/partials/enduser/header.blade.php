@@ -72,11 +72,9 @@
                         <li class="drop"><a href="javascript:void(0)">Blog</a>
                             <div class="megamenu dropdown">
                                 <ul class="item item01">
-                                    <li><a href="#">Swimming</a></li>
-                                    <li><a href="#">un-categorized</a></li>
-                                    <li><a href="#">Football</a></li>
-                                    <li><a href="#">Karate</a></li>
-                                    <li><a href="#">Basket Ball</a></li>
+                                    @foreach($global_categories as $global_category)
+                                        <li><a href="{{route('index.category.posts',$global_category->slug)}}">{{$global_category->name}}</a></li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </li>
@@ -247,11 +245,9 @@
                         <li class="drop"><a href="javascript:void(0)">Blog</a>
                             <div class="megamenu dropdown">
                                 <ul class="item item01">
-                                    <li><a href="#">Swimming</a></li>
-                                    <li><a href="#">un-categorized</a></li>
-                                    <li><a href="#">Football</a></li>
-                                    <li><a href="#">Karate</a></li>
-                                    <li><a href="#">Basket Ball</a></li>
+                                    @foreach($global_categories as $global_category)
+                                        <li><a href="{{route('index.category.posts',$global_category->slug)}}">{{$global_category->name}}</a></li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </li>
