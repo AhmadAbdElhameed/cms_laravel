@@ -6,6 +6,7 @@ use App\Http\Controllers\Enduser\Auth\RegisterController;
 use App\Http\Controllers\Enduser\Auth\ResetPasswordController;
 use App\Http\Controllers\Enduser\Auth\VerificationController;
 use App\Http\Controllers\Enduser\IndexController;
+use App\Http\Controllers\Enduser\UsersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,16 +31,20 @@ Route::group(['prefix' => 'enduser' , 'as' => 'enduser.'] , function(){
     Route::get('/register' , [RegisterController::class,'showRegistrationForm'])->name('show_register_form');
     Route::post('/register' , [RegisterController::class,'register'])->name('register');
 
-    Route::get('/password/reset' ,[ForgotPasswordController::class,'showLinkRequestForm'])->name('password.request');
-    Route::post('/password/email' ,[ForgotPasswordController::class,'sendResetLinkEmail'])->name('password.email');
-    Route::get('/password/reset/{token}' ,[ResetPasswordController::class,'showResetForm'])->name('password.reset');
-    Route::post('/password/reset' ,[ResetPasswordController::class,'reset'])->name('password.update');
-
     Route::get('email/verify' ,[VerificationController::class,'show'])->name('verification.notice');
-    Route::get('email/verify/{id}/{hash}' ,[VerificationController::class,'verify'])->name('verification.verify');
     Route::post('email/resend' ,[VerificationController::class,'resend'])->name('verification.resend');
 
 });
+Route::get('/password/reset/{token}' ,[ResetPasswordController::class,'showResetForm'])->name('password.reset');
+Route::get('/password/reset' ,[ForgotPasswordController::class,'showLinkRequestForm'])->name('password.request');
+Route::post('/password/email' ,[ForgotPasswordController::class,'sendResetLinkEmail'])->name('password.email');
+Route::post('/password/reset' ,[ResetPasswordController::class,'reset'])->name('password.update');
+Route::get('email/verify/{id}/{hash}' ,[VerificationController::class,'verify'])->name('verification.verify');
+
+Route::group(['middleware' => 'verified'],function(){
+   Route::get('/dashboard',[UsersController::class,'index'])->name('enduser.dashboard');
+});
+
 Route::get('/contact',[IndexController::class,'contact'])->name('contact');
 Route::post('/contact',[IndexController::class,'send_message'])->name('contact.send');
 Route::get('/',[IndexController::class,'index'])->name('index');

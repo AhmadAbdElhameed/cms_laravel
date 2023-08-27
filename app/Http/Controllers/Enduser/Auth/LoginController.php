@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Enduser\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Http\Request;
 class LoginController extends Controller
 {
     /*
@@ -47,4 +47,30 @@ class LoginController extends Controller
     {
         return 'username';
     }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->status == 1) {
+            $name = $user->name;
+            toast('Welcome '.$name,'success');
+            return redirect()->route('index');
+        }
+        $name = $user->name;
+        toast($name.' your account is disable please contact our team for more information\'s','warning');
+        return redirect()->route('index');
+    }
+
+    protected function loggedOut(Request $request)
+    {
+        toast('Logged Out Successfully','success');
+        return redirect()->route('index');
+    }
+
 }

@@ -1,47 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <div class="col-lg-8 offset-md-2 mt-5">
+        <div class="my__account__wrapper">
 
-                    <form method="POST" action="{{ route('enduser.password.email') }}">
-                        @csrf
+            <h3 class="account__title">{{ __('Reset Password') }}</h3>
+            @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
+            <form action="{{ route('password.email') }}" method="POST">
+                @csrf
+                <div class="account__form">
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                    <div class="input__box">
+                        <label>Email <span>*</span></label>
+                        <input type="email" name="email" value="{{ old('email') }}">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        @error('email')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
 
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
+                    <div class="form__btn">
+                        <button type="submit">{{ __('Send Password Reset Link') }}</button>
+                    </div>
 
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    <a class="forget_pass" href="{{ route('enduser.login') }}">Go To LogIn?</a>
                 </div>
-            </div>
+
+            </form>
         </div>
     </div>
-</div>
+
+
+
 @endsection

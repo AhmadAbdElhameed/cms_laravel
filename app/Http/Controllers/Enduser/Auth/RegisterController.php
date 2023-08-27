@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -87,6 +88,13 @@ class RegisterController extends Controller
                 $user->update(['image' =>$filename]);
             }
         }
+        return $user;
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        toast('Your account registered successfully, please check your mail to activate your account.','success');
+        return redirect(route('index'));
     }
 
     public function showRegistrationForm()

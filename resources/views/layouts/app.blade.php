@@ -51,13 +51,13 @@
     </div>
 
     @include('sweetalert::alert')
-{{--    <!-- Scripts -->--}}
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <!-- JS Files -->
     <script src="{{asset('assetsEnduser/js/vendor/jquery-3.2.1.min.js')}}"></script>
     <script src="{{asset('assetsEnduser/js/popper.min.js')}}"></script>
     <script src="{{asset('assetsEnduser/js/bootstrap.min.js')}}"></script>
     <script src="{{asset('assetsEnduser/js/plugins.js')}}"></script>
     <script src="{{asset('assetsEnduser/js/active.js')}}"></script>
+
+{{--    @vite(['resources/sass/app.scss', 'resources/js/app.js'])--}}
 </body>
 

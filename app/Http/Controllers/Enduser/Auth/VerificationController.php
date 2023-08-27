@@ -47,4 +47,12 @@ class VerificationController extends Controller
             ? redirect($this->redirectPath())
             : view('enduser.auth.verify');
     }
+
+    protected function verified(Request $request)
+    {
+        $request->user()->update(['status' => 1]);
+        toast('Your account has been verified successfully','success');
+        return redirect(route('index'));
+    }
+
 }
