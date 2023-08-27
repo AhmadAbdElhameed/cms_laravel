@@ -43,6 +43,8 @@ Route::get('email/verify/{id}/{hash}' ,[VerificationController::class,'verify'])
 
 Route::group(['middleware' => 'verified'],function(){
    Route::get('/dashboard',[UsersController::class,'index'])->name('enduser.dashboard');
+   Route::get('/create-post',[UsersController::class,'createPost'])->name('enduser.users.post.create');
+   Route::post('/create-post',[UsersController::class,'storePost'])->name('enduser.users.post.store');
 });
 
 Route::get('/contact',[IndexController::class,'contact'])->name('contact');
