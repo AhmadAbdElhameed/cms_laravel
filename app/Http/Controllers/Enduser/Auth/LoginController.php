@@ -60,7 +60,7 @@ class LoginController extends Controller
         if ($user->status == 1) {
             $name = $user->name;
             toast('Welcome '.$name,'success');
-            return redirect()->route('index');
+            return redirect()->route('enduser.dashboard');
         }
         $name = $user->name;
         toast($name.' your account is disable please contact our team for more information\'s','warning');
