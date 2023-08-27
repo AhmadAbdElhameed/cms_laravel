@@ -22,7 +22,7 @@ class UsersController extends Controller
     }
 
     public function createPost(){
-        $categories = Category::whereStatus(1)->pluck('name','id');
+        $categories = Category::whereStatus(1)->get(['name','id']);
         return view('enduser.users.create_post',compact('categories'));
     }
     public function storePost(){
