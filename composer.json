@@ -18,7 +18,9 @@
         "predis/predis": "^2.2",
         "realrashid/sweet-alert": "^7.0",
         "spatie/laravel-html": "^3.2",
-        "spatie/laravel-searchable": "^1.11"
+        "spatie/laravel-searchable": "^1.11",
+        "spatie/laravel-sluggable": "^3.5",
+        "stevebauman/purify": "^6.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8",

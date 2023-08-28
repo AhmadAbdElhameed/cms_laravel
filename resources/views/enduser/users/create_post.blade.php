@@ -1,7 +1,9 @@
 @extends('layouts.app')
+
 @section('style')
     <link rel="stylesheet" href="{{asset('assetsEnduser/js/summernote/summernote-bs4.min.css')}}">
 @endsection
+
 @section('content')
     <!-- Start Blog Area -->
     <div class="page-blog bg--white section-padding--lg blog-sidebar right-sidebar">
@@ -9,7 +11,7 @@
             <div class="row">
                 <div class="col-lg-9 col-12">
                     <h3>Create Post</h3>
-                    <form action="route{{'enduser.users.post.store'}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('enduser.users.post.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label class="custom-control-label">{{__('Title')}}</label>
@@ -35,14 +37,14 @@
                         <div class="row">
                             <div class="col-4">
                                 <label class="custom-control-label">{{__('Category')}}</label>
-                                <select class="form-control" name="category">
+                                <select class="form-control" name="category_id">
                                     <option value="">Select</option>
                                     @foreach($categories as $category)
                                         <option value="{{$category->id}}">{{$category->name}}</option>
                                     @endforeach
                                 </select>
                                 <div>
-                                    @error('category')
+                                    @error('category_id')
                                     <span class="text-danger">{{$message}}</span>
                                     @enderror
                                 </div>
@@ -63,12 +65,12 @@
 
                             <div class="col-4">
                                 <label class="custom-control-label">{{__('Status')}}</label>
-                                <select class="form-control" name="comment_able">
+                                <select class="form-control" name="status">
                                     <option value="1">Active</option>
                                     <option value="0">In-Active</option>
                                 </select>
                                 <div>
-                                    @error('comment_able')
+                                    @error('status')
                                     <span class="text-danger">{{$message}}</span>
                                     @enderror
                                 </div>
