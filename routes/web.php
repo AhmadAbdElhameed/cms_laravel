@@ -45,6 +45,10 @@ Route::group(['middleware' => 'verified'],function(){
    Route::get('/dashboard',[UsersController::class,'index'])->name('enduser.dashboard');
    Route::get('/create-post',[UsersController::class,'createPost'])->name('enduser.users.post.create');
    Route::post('/create-post',[UsersController::class,'storePost'])->name('enduser.users.post.store');
+   Route::get('/edit/post/{post}',[UsersController::class,'editPost'])->name('enduser.users.post.edit');
+   Route::put('/edit/post/{post}',[UsersController::class,'updatePost'])->name('enduser.users.post.update');
+   Route::delete('/delete/post/{post}',[UsersController::class,'deletePost'])->name('enduser.users.post.delete');
+   Route::post('/delete/post/media/{media}',[UsersController::class,'deletePostMedia'])->name('enduser.users.post.media.delete');
 });
 
 Route::get('/contact',[IndexController::class,'contact'])->name('contact');

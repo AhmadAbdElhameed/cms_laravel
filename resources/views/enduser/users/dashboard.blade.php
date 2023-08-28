@@ -23,15 +23,15 @@
                                         <td>{{\Illuminate\Support\Str::limit($post->title,50,'...') }}</td>
                                         <td>{{$post->comments_count}}</td>
                                         <td>{{$post->status}}</td>
-                                        <td><a href="{{route('enduser.dashboard')}}"
+                                        <td><a href="{{route('enduser.users.post.edit',$post)}}"
                                             class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                         </td>
-                                        <td><a href="{{route('enduser.dashboard')}}"
+                                        <td><a href="javascript:void(0);"
                                             class="btn btn-sm btn-danger"
                                             onclick="if(confirm('Are you sure ,you want to delete this post'))
                                             {document.getElementById('post-delete-{{$post->id}}').submit();}
                                             else {return false}"><i class="fa fa-trash"></i></a>
-                                            <form action="{{route('enduser.dashboard')}}" id="post-delete-{{$post->id}}">
+                                            <form action="{{route('enduser.users.post.delete',$post)}}" method="POST" id="post-delete-{{$post->id}}">
                                                 @csrf
                                                 @method('DELETE')
                                             </form>

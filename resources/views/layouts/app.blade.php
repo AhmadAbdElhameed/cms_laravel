@@ -38,6 +38,8 @@
     <!-- the fileinput plugin styling CSS file -->
 {{--    <link href="{{asset('assetsEnduser/js/bootstrap-fileinput/css/fileinput.css')}}" media="all" rel="stylesheet" type="text/css" />--}}
     <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.5.2/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <!-- default icons used in the plugin are from Bootstrap 5.x icon library (which can be enabled by loading CSS below) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css" crossorigin="anonymous">
     @yield('style')
 
 </head>

@@ -6,6 +6,7 @@
             <li class="list-group-item">
                 <img  src="{{asset('assetsEnduser/uploads/profile.jpg')}}" alt="{{auth()->user()->name}}">
             </li>
+            <li class="list-group-item"><a  href="{{route('enduser.dashboard')}}">My Dashboard</a></li>
             <li class="list-group-item"><a  href="{{route('enduser.dashboard')}}">My Posts</a></li>
             <li class="list-group-item"><a  href="{{route('enduser.users.post.create')}}">Create Post</a></li>
             <li class="list-group-item"><a  href="{{route('enduser.dashboard')}}">Manage Comments</a></li>
