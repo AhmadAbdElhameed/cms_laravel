@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Enduser\Comments;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCommentRequest extends FormRequest
+class UpdateCommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,6 +26,7 @@ class StoreCommentRequest extends FormRequest
             'name' => 'required|string|min:2|max:255',
             'email' => 'required|string|email',
             'url' => 'nullable|url',
+            'status' => 'required'
         ];
     }
 }

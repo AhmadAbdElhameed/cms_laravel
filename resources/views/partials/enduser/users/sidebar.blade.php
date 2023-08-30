@@ -9,7 +9,7 @@
             <li class="list-group-item"><a  href="{{route('enduser.dashboard')}}">My Dashboard</a></li>
             <li class="list-group-item"><a  href="{{route('enduser.dashboard')}}">My Posts</a></li>
             <li class="list-group-item"><a  href="{{route('enduser.users.post.create')}}">Create Post</a></li>
-            <li class="list-group-item"><a  href="{{route('enduser.dashboard')}}">Manage Comments</a></li>
+            <li class="list-group-item"><a  href="{{route('enduser.users.comments')}}">Manage Comments</a></li>
             <li class="list-group-item"><a  href="{{route('enduser.dashboard')}}">Update Information</a></li>
             <li class="list-group-item"><a  href="{{route('enduser.dashboard')}}"
                                             onclick="event.preventDefault();

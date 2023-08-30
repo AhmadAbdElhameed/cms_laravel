@@ -49,6 +49,11 @@ Route::group(['middleware' => 'verified'],function(){
    Route::put('/edit/post/{post}',[UsersController::class,'updatePost'])->name('enduser.users.post.update');
    Route::delete('/delete/post/{post}',[UsersController::class,'deletePost'])->name('enduser.users.post.delete');
    Route::post('/delete/post/media/{media}',[UsersController::class,'deletePostMedia'])->name('enduser.users.post.media.delete');
+
+    Route::get('/comments',[UsersController::class,'showComments'])->name('enduser.users.comments');
+    Route::get('/edit/comment/{comment}',[UsersController::class,'editComment'])->name('enduser.users.comments.edit');
+    Route::put('/edit/comment/{comment}',[UsersController::class,'updateComment'])->name('enduser.users.comments.update');
+    Route::delete('/delete/comment/{comment}',[UsersController::class,'deleteComment'])->name('enduser.users.comments.delete');
 });
 
 Route::get('/contact',[IndexController::class,'contact'])->name('contact');
