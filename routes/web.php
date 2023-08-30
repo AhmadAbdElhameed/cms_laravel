@@ -42,7 +42,14 @@ Route::post('/password/reset' ,[ResetPasswordController::class,'reset'])->name('
 Route::get('email/verify/{id}/{hash}' ,[VerificationController::class,'verify'])->name('verification.verify');
 
 Route::group(['middleware' => 'verified'],function(){
+
+
    Route::get('/dashboard',[UsersController::class,'index'])->name('enduser.dashboard');
+   Route::get('/edit-info',[UsersController::class,'editInfo'])->name('enduser.info.edit');
+   Route::put('/edit-info',[UsersController::class,'updateInfo'])->name('enduser.info.update');
+   Route::put('/update/password',[UsersController::class,'updatePassword'])->name('enduser.password.update');
+
+
    Route::get('/create-post',[UsersController::class,'createPost'])->name('enduser.users.post.create');
    Route::post('/create-post',[UsersController::class,'storePost'])->name('enduser.users.post.store');
    Route::get('/edit/post/{post}',[UsersController::class,'editPost'])->name('enduser.users.post.edit');

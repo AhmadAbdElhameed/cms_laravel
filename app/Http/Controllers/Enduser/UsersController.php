@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Enduser\Comments\UpdateCommentRequest;
 use App\Http\Requests\Enduser\StorePostRequest;
 use App\Http\Requests\Enduser\UpdatePostRequest;
+use App\Http\Requests\Enduser\UpdateUserInfo;
+use App\Http\Requests\Enduser\UpdateUserPassword;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Post;
@@ -13,6 +15,8 @@ use App\Models\PostMedia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Intervention\Image\Image;
 use Stevebauman\Purify\Facades\Purify;
 
@@ -30,6 +34,62 @@ class UsersController extends Controller
 
         return view('enduser.users.dashboard',compact('posts'));
     }
+
+    public function editInfo(){
+        return view('enduser.users.edit_info');
+    }
+    public function updateInfo(UpdateUserInfo $request){
+
+
+        if($image = $request->file('image')){
+            if(auth()->user()->image != ''){
+                if(File::exists('/assets/users/'.auth()->user()->image)){
+                    unlink('/assets/users/'.auth()->user()->image);
+                }
+            }
+
+            $filename = Str::slug(auth()->user()->name).'.'.$image->getClientOriginalExtension();
+            $path = public_path('assets/users/'.$filename);
+            \Intervention\Image\Facades\Image::make($image->getRealPath())->
+            resize(300,null, function ($constrained){
+                $constrained->aspectRatio();
+            })->save($path,100);
+        }
+
+        $user = \App\Models\User::whereId(auth()->user()->id);
+        $user->update([
+                    'name' =>$request->name,
+                    'email' =>$request->email,
+                    'mobile' =>$request->mobile,
+                    'image' =>$filename ?? auth()->user()->image,
+                    'bio' =>$request->bio,
+                    'receive_email' =>$request->receive_email,
+        ]);
+
+        toast('Profile Information Updated Successfully!','success');
+
+        return redirect(route('enduser.info.edit'));
+
+
+    }
+
+    public function updatePassword(UpdateUserPassword $request){
+
+        $user = auth()->user();
+
+        if (Hash::check($request->current_password, auth()->user()->password)){
+            $request->user()->update([
+                'password' => bcrypt($request->password)
+            ]);
+        }
+
+
+        toast('Password Updated Successfully!','success');
+
+        return redirect(route('enduser.info.edit'));
+    }
+
+
 
     public function createPost(){
         $categories = Category::whereStatus(1)->get(['name','id']);
